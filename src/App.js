@@ -1,8 +1,18 @@
+import { useState } from "react";
 import './App.css';
 import TaskList from "./components/TaskList";
 import NewTask from "./components/NewTask";
 
 function App() {
+
+  const [input, setInput] = useState([]);
+
+  function addItem(inputText) {
+    setInput(prevItems => {
+      return [...prevItems, inputText];
+    });
+  }
+
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -17,14 +27,19 @@ function App() {
           </h2>
         </div>
         <div className="col-12 text-center m-2">
-          <button
-            className="btn btn-secondary btn-lg"
-          >
-            Add task
-          </button>
+
         </div>
-        <NewTask />
-        <TaskList />
+        <NewTask onAdd={addItem} />
+        {input.map((todoItem, index) => {
+          return (
+            <TaskList
+              key={index}
+              id={index}
+              text={todoItem}
+            />
+          );
+        })}
+
       </div>
     </div>
   );

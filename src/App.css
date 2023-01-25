@@ -9,3 +9,13 @@
   font-size: 0.8em;
   font-weight: bold;
 }
+
+.form-control {
+  width: 250px;
+}
+
+.input-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

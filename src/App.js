@@ -13,6 +13,14 @@ function App() {
     });
   }
 
+  function deleteItem(id) {
+    setInput((prevTasks) => {
+      return prevTasks.filter((item, index) => {
+        return index !== id;
+      });
+    });
+  }
+
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -36,6 +44,7 @@ function App() {
               key={index}
               id={index}
               text={todoItem}
+              onDelete={deleteItem}
             />
           );
         })}

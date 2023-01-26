@@ -24,7 +24,7 @@ const TaskList = (props) => {
                                 <input className="form-check-input me-2" type="checkbox" value="" aria-label="..." onClick={handleCheckbox} />
                                 <div style={{ textDecoration: isDone ? "line-through" : "none" }} className="task">{props.text}</div>
                             </div>
-                            <button type="submit" className="btn btn-light ">
+                            <button type="submit" className="btn btn-light" onClick={() => { props.onDelete(props.id); }} >
                                 <FontAwesomeIcon icon={faTrash} />
                             </button>
                         </li>

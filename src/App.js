@@ -11,6 +11,15 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [count, setCount] = useState(0);
 
+  function numberOfTasks() {
+    return count === 0 ? "Zero" : count;
+  }
+
+  function getBadgeClasses() {
+    const baseClasses = "badge bg-";
+    return count === 0 ? baseClasses + "warning text-dark" : baseClasses + "primary";
+  }
+
   function handleNewTask() {
     setAddNewTaskMode(true);
   }
@@ -52,10 +61,10 @@ function App() {
           <h1 id="logo">To-do App</h1>
           <h2>
             You have{" "}
-            <span>
-              1
+            <span className={getBadgeClasses()}>
+              {numberOfTasks()}
             </span>{" "}
-            task pending
+            task{count > 1 && "s"} pending
           </h2>
         </div>
         <div className="col-12 text-center m-2">

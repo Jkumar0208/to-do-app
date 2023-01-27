@@ -54,6 +54,15 @@ function App() {
     setTasks([...tasks.filter((t) => t.id !== task.id), targetTask]);
   }
 
+  function handleDelete(task) {
+    setTasks((prevTasks) => {
+      return prevTasks.filter((item) => {
+        return item.id !== task.id;
+      });
+    })
+    setCount(count - 1);
+  }
+
   return (
     <div className="container main-container">
       <div className="row justify-content-center">
@@ -85,6 +94,7 @@ function App() {
           <TaskList
             tasks={tasks}
             onMarkAsDone={handleMarkAsDone}
+            onDelete={handleDelete}
           />
         }
 

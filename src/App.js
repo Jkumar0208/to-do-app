@@ -1,28 +1,46 @@
 import { useState } from "react";
 import './App.css';
+import { v4 as uuidv4 } from "uuid";
 import TaskList from "./components/TaskList";
 import NewTask from "./components/NewTask";
 
 function App() {
 
-  const [input, setInput] = useState([]);
+  const [taskInput, setTaskInput] = useState("");
+  const [addNewTaskMode, setAddNewTaskMode] = useState(false);
+  const [tasks, setTasks] = useState([]);
+  const [count, setCount] = useState(0);
 
-  function addItem(inputText) {
-    setInput(prevItems => {
-      return [...prevItems, inputText];
-    });
+  function handleNewTask() {
+    setAddNewTaskMode(true);
   }
 
-  function deleteItem(id) {
-    setInput((prevTasks) => {
-      return prevTasks.filter((item, index) => {
-        return index !== id;
-      });
-    });
+  function handleUserInput(e) {
+    const value = e.target.value;
+    setTaskInput(value);
+    //console.log(value);
+  }
+
+  function handleSaveTask(e) {
+    e.preventDefault();
+    if (!taskInput.length) {
+      setAddNewTaskMode(false);
+    } else {
+      const newTask = {
+        description: taskInput,
+        id: uuidv4(),
+        completed: false,
+        createdAt: Date.now()
+      };
+      setTasks([...tasks, newTask]);
+      setTaskInput("");
+      setAddNewTaskMode(false);
+      setCount(count + 1);
+    }
   }
 
   return (
-    <div className="container">
+    <div className="container main-container">
       <div className="row justify-content-center">
         <div className="col-12 text-center">
           <h1 id="logo">To-do App</h1>
@@ -35,19 +53,22 @@ function App() {
           </h2>
         </div>
         <div className="col-12 text-center m-2">
-
+          <button
+            className="btn btn-secondary btn-lg"
+            onClick={handleNewTask}
+          >
+            Add task
+          </button>
         </div>
-        <NewTask onAdd={addItem} />
-        {input.map((todoItem, index) => {
-          return (
-            <TaskList
-              key={index}
-              id={index}
-              text={todoItem}
-              onDelete={deleteItem}
-            />
-          );
-        })}
+
+        {addNewTaskMode && <NewTask
+          onInput={handleUserInput}
+          onSave={handleSaveTask}
+        />}
+
+        {count > 0 && !addNewTaskMode &&
+          <TaskList tasks={tasks} />
+        }
 
       </div>
     </div>

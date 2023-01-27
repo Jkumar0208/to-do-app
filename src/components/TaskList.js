@@ -1,45 +1,62 @@
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import '../App.css';
 
-const TaskList = (props) => {
+const TaskList = ({ tasks }) => {
+    console.log("props", tasks);
 
-    const [isDone, setIsDone] = useState(false);
-
-    function handleCheckbox() {
-        setIsDone((prevValue) => {
-            return !prevValue;
-        });
-    }
+    const compare = (a, b) => {
+        if (a.createdAt > b.createdAt) return -1;
+        if (b.createdAt > a.createdAt) return 1;
+        return 0;
+    };
 
     return (
-        <div className="card w-75 mb-3">
-            <div className="">
-                <div className="form">
-                    <ul className="list-group mb-0">
-                        <li
-                            className="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom-0 rounded-0 mb-2">
-                            <div className="d-flex align-items-center">
-                                <input className="form-check-input me-2" type="checkbox" value="" aria-label="..." onClick={handleCheckbox} />
-                                <div style={{ textDecoration: isDone ? "line-through" : "none" }} className="task">{props.text}</div>
-                            </div>
-                            <button type="submit" className="btn btn-light" onClick={() => { props.onDelete(props.id); }} >
-                                <FontAwesomeIcon icon={faTrash} />
-                            </button>
-                        </li>
-                    </ul>
-                    {/* <input className="form-check-input" style={{ marginTop: "10px" }} type="checkbox" value="" id="flexCheckDefault" />
-
-                    <span style={{ marginLeft: "20px" }}>{props.text}</span>
-
-                    <button type="submit" class="btn btn-light ">
-                        <FontAwesomeIcon icon={faTrash} />
-                    </button> */}
-
-                </div>
-            </div>
-        </div>
+        <table className="table m-2">
+            <thead className="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Done</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {tasks.sort(compare).map((task, i) => {
+                    return (
+                        <tr key={`${task.description} ${i}`}>
+                            <th scope='row'>{i + 1}</th>
+                            <td>
+                                {task.description}
+                            </td>
+                            <td>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-success btn-sm"
+                                >
+                                    Done
+                                </button>
+                            </td>
+                            <td>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-warning btn-sm"
+                                >
+                                    Edit
+                                </button>
+                            </td>
+                            <td>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-danger btn-sm"
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    );
+                })}
+            </tbody>
+        </table>
     );
 }
 

@@ -1,6 +1,6 @@
 import '../App.css';
 
-const TaskList = ({ tasks }) => {
+const TaskList = ({ tasks, onMarkAsDone }) => {
     console.log("props", tasks);
 
     const compare = (a, b) => {
@@ -25,13 +25,14 @@ const TaskList = ({ tasks }) => {
                     return (
                         <tr key={`${task.description} ${i}`}>
                             <th scope='row'>{i + 1}</th>
-                            <td>
+                            <td style={task.completed ? { textDecoration: "line-through" } : {}}>
                                 {task.description}
                             </td>
                             <td>
                                 <button
                                     type="button"
                                     className="btn btn-outline-success btn-sm"
+                                    onClick={() => onMarkAsDone(task)}
                                 >
                                     Done
                                 </button>
@@ -62,3 +63,5 @@ const TaskList = ({ tasks }) => {
 
 export default TaskList;
 
+
+//style={{ textDecoration: task.completed ? "line-through" : "none" }}>

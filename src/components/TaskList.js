@@ -1,6 +1,6 @@
 import '../App.css';
 
-const TaskList = ({ tasks, onMarkAsDone }) => {
+const TaskList = ({ tasks, onMarkAsDone, onDelete }) => {
     console.log("props", tasks);
 
     const compare = (a, b) => {
@@ -49,6 +49,7 @@ const TaskList = ({ tasks, onMarkAsDone }) => {
                                 <button
                                     type="button"
                                     className="btn btn-outline-danger btn-sm"
+                                    onClick={() => onDelete(task)}
                                 >
                                     Delete
                                 </button>

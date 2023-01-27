@@ -39,6 +39,12 @@ function App() {
     }
   }
 
+  function handleMarkAsDone(task) {
+    const targetTask = tasks.find((t) => t.id === task.id);
+    targetTask.completed = !targetTask.completed;
+    setTasks([...tasks.filter((t) => t.id !== task.id), targetTask]);
+  }
+
   return (
     <div className="container main-container">
       <div className="row justify-content-center">
@@ -67,7 +73,10 @@ function App() {
         />}
 
         {count > 0 && !addNewTaskMode &&
-          <TaskList tasks={tasks} />
+          <TaskList
+            tasks={tasks}
+            onMarkAsDone={handleMarkAsDone}
+          />
         }
 
       </div>

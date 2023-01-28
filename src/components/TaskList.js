@@ -11,7 +11,7 @@ const TaskList = ({ tasks, onMarkAsDone, onDelete, onEdit }) => {
 
     return (
         <table className="table m-2">
-            <thead className="thead-dark">
+            <thead className="table-heading">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Description</th>
@@ -64,6 +64,3 @@ const TaskList = ({ tasks, onMarkAsDone, onDelete, onEdit }) => {
 }
 
 export default TaskList;
-
-
-//style={{ textDecoration: task.completed ? "line-through" : "none" }}>

@@ -14,8 +14,6 @@ function App() {
   const [editTaskMode, setEditTaskMode] = useState(false);
   const [targetTaskToEdit, setTargetTaskToEdit] = useState(null);
 
-  console.log("targetTaskToEdit", targetTaskToEdit);
-
   function numberOfTasks() {
     return count === 0 ? "Zero" : count;
   }
@@ -86,7 +84,7 @@ function App() {
   }
 
   return (
-    <div className="container main-container">
+    <div className="container">
       <div className="row justify-content-center">
         <div className="col-12 text-center">
           <h1 id="logo">To-do App</h1>
@@ -108,20 +106,22 @@ function App() {
           </button>
         </div>
 
-        {addNewTaskMode && (
-          <NewTask
-            onInput={handleUserInput}
-            onSave={handleSaveTask}
-          />
-        )}
+        <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-8 text-center m-2">
+          {addNewTaskMode && (
+            <NewTask
+              onInput={handleUserInput}
+              onSave={handleSaveTask}
+            />
+          )}
 
-        {editTaskMode && (
-          <EditTask
-            onInput={handleUserInput}
-            onSaveEdit={handleSaveEditedTask}
-            targetTask={targetTaskToEdit}
-          />
-        )}
+          {editTaskMode && (
+            <EditTask
+              onInput={handleUserInput}
+              onSaveEdit={handleSaveEditedTask}
+              targetTask={targetTaskToEdit}
+            />
+          )}
+        </div>
 
         {count > 0 && !addNewTaskMode && !editTaskMode && (
           <TaskList
@@ -131,7 +131,6 @@ function App() {
             onEdit={handleEditTask}
           />
         )}
-
       </div>
     </div>
   );

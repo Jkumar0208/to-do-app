@@ -2,7 +2,7 @@ import '../App.css';
 
 const EditTask = ({ onInput, onSaveEdit, targetTask }) => {
     return (
-        <form style={{ display: "flex", flexDirection: "column" }}>
+        <form className='input-form'>
             <div className="form-group m-2">
                 <label htmlFor="taskInput">Please change your task below</label>
                 <input

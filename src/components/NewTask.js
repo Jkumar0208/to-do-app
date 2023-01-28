@@ -5,7 +5,7 @@ function Newtask({ onInput, onSave }) {
     return (
 
         <form className='input-form'>
-            <div className="form-group m-2 col-sm-12">
+            <div className="form-group m-2">
                 <label htmlFor="taskInput">Please input your new task below</label>
                 <input
                     type="text"
@@ -14,9 +14,6 @@ function Newtask({ onInput, onSave }) {
                     aria-describedby="newTaskInput"
                     onChange={e => onInput(e)}
                 />
-                {/* <small id="newTaskInput" className="form-text text-muted text-center">
-                    What are you up to?
-                </small> */}
             </div>
             <button type="submit" className="btn btn-primary" onClick={onSave}>
                 Save task

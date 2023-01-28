@@ -3,6 +3,7 @@ import './App.css';
 import { v4 as uuidv4 } from "uuid";
 import TaskList from "./components/TaskList";
 import NewTask from "./components/NewTask";
+import EditTask from "./components/EditTask";
 
 function App() {
 
@@ -10,6 +11,10 @@ function App() {
   const [addNewTaskMode, setAddNewTaskMode] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [count, setCount] = useState(0);
+  const [editTaskMode, setEditTaskMode] = useState(false);
+  const [targetTaskToEdit, setTargetTaskToEdit] = useState(null);
+
+  console.log("targetTaskToEdit", targetTaskToEdit);
 
   function numberOfTasks() {
     return count === 0 ? "Zero" : count;
@@ -63,6 +68,23 @@ function App() {
     setCount(count - 1);
   }
 
+  function handleEditTask(task) {
+    setEditTaskMode(true);
+    setTargetTaskToEdit(task);
+  }
+
+  function handleSaveEditedTask(e) {
+    e.preventDefault();
+    if (!taskInput.length) {
+      setEditTaskMode(false);
+    } else {
+      const editedTask = { ...targetTaskToEdit, description: taskInput };
+      setTasks([...tasks.filter((t) => t.id !== targetTaskToEdit.id), editedTask]);
+      setTaskInput("");
+      setEditTaskMode(false);
+    }
+  }
+
   return (
     <div className="container main-container">
       <div className="row justify-content-center">
@@ -78,6 +100,7 @@ function App() {
         </div>
         <div className="col-12 text-center m-2">
           <button
+            disabled={editTaskMode}
             className="btn btn-secondary btn-lg"
             onClick={handleNewTask}
           >
@@ -85,18 +108,29 @@ function App() {
           </button>
         </div>
 
-        {addNewTaskMode && <NewTask
-          onInput={handleUserInput}
-          onSave={handleSaveTask}
-        />}
+        {addNewTaskMode && (
+          <NewTask
+            onInput={handleUserInput}
+            onSave={handleSaveTask}
+          />
+        )}
 
-        {count > 0 && !addNewTaskMode &&
+        {editTaskMode && (
+          <EditTask
+            onInput={handleUserInput}
+            onSaveEdit={handleSaveEditedTask}
+            targetTask={targetTaskToEdit}
+          />
+        )}
+
+        {count > 0 && !addNewTaskMode && !editTaskMode && (
           <TaskList
             tasks={tasks}
             onMarkAsDone={handleMarkAsDone}
             onDelete={handleDelete}
+            onEdit={handleEditTask}
           />
-        }
+        )}
 
       </div>
     </div>

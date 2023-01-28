@@ -1,6 +1,6 @@
 import '../App.css';
 
-const TaskList = ({ tasks, onMarkAsDone, onDelete }) => {
+const TaskList = ({ tasks, onMarkAsDone, onDelete, onEdit }) => {
     console.log("props", tasks);
 
     const compare = (a, b) => {
@@ -41,6 +41,7 @@ const TaskList = ({ tasks, onMarkAsDone, onDelete }) => {
                                 <button
                                     type="button"
                                     className="btn btn-outline-warning btn-sm"
+                                    onClick={() => onEdit(task)}
                                 >
                                     Edit
                                 </button>

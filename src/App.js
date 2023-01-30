@@ -88,13 +88,13 @@ function App() {
       <div className="row justify-content-center">
         <div className="col-12 text-center">
           <h1 id="logo">To-do App</h1>
-          <h2>
+          <h4>
             You have{" "}
-            <span className={getBadgeClasses()}>
+            <span id="title" className={getBadgeClasses()}>
               {numberOfTasks()}
             </span>{" "}
             task{count > 1 && "s"} pending
-          </h2>
+          </h4>
         </div>
         <div className="col-12 text-center m-2">
           <button
